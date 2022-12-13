@@ -1,0 +1,31 @@
+#!/bin/python3
+import sys
+
+def two_factors(n: int) -> list[int]:
+    if n % 2 == 0:
+        n //= 2
+        return [2, n]
+
+    f = 3
+    while f * f <= n:
+        if n % f == 0:
+            n //= f
+            return [f, n]
+
+        else:
+            f += 2
+    return [1, n]
+
+def factor_files(file_name: str):
+    with open(file_name) as f:
+        content = [int(i) for i in f.readlines()]
+        for i in content:
+            a, b = two_factors(i)
+            print(f"{i}={a}*{b}")
+
+def main():
+    file_name = sys.argv[1]
+    factor_files(file_name)
+
+if __name__ == '__main__':
+    main()
